@@ -1,0 +1,33 @@
+#Roll frequency.
+rollFrequency = 0.16
+#Primary pitch amplitude.
+pitchPrimaryAmplitudeRad = 0.42
+#Yaw frequency.
+yawFrequency = 0.07
+#Minimum camera-facing dot before applying protection.
+minFacingDot = 0.22
+#Primary pitch frequency.
+pitchPrimaryFrequency = 0.1
+#Yaw amplitude.
+yawAmplitudeRad = 0.3
+#Higher values track target angles faster; lower values look softer.
+tumbleSmoothingResponsiveness = 8.0
+#Maximum allowed tilt to avoid disappearing edge-on leaves.
+maxTiltDegrees = 67.0
+#Secondary pitch frequency.
+pitchSecondaryFrequency = 0.32
+#Enable inertial smoothing for tumble angles to reduce abrupt motion.
+tumbleSmoothingEnabled = true
+__cfg_version = 0
+#Base tilt angle in degrees.
+baseTiltDegrees = 46.0
+#Secondary pitch amplitude.
+pitchSecondaryAmplitudeRad = 0.12
+#Enable tumble rendering.
+tumbleEnabled = false
+#Global tumble intensity.
+tumbleIntensity = 1.1
+#How aggressively to prevent edge-on disappearance.
+cameraFacingProtection = 0.35
+#Roll amplitude.
+rollAmplitudeRad = 0.26

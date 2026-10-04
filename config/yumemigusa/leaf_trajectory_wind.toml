@@ -1,0 +1,19 @@
+#Micro turbulence scale.
+windMicroScale = 0.35
+__cfg_version = 0
+#Chunk wind max strength.
+chunkStrengthMax = 1.0
+#Chunk wind drift amplitude.
+chunkDriftAmplitude = 0.55
+#Chunk wind min strength.
+chunkStrengthMin = 0.55
+#Game-time contribution to wind sampling.
+windTemporalScale = 0.02
+#Chunk wind drift speed.
+chunkDriftSpeed = 0.08
+#Particle-age contribution to wind sampling.
+windAgeTemporalScale = 0.03
+#Micro turbulence frequency.
+windMicroFrequency = 4.5
+#Macro wind scale.
+windMacroScale = 1.1

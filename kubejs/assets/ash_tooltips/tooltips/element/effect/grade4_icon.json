@@ -1,0 +1,4 @@
+{
+  "type": "obscure_tooltips:icon_particle",
+  "particle": { "type": "obscure_tooltips:line", "center_color": "#88E8D0FF", "edge_color": "#00E8D0FF" }
+}

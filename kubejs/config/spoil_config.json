@@ -1,0 +1,47 @@
+﻿{
+  "default_spoil_time": 100,
+  "default_spoil_result": "minecraft:rotten_flesh",
+  "overrides": [
+    {
+      "item": "minecraft:potato",
+      "result": "minecraft:poisonous_potato",
+      "time": 100
+    },
+    {
+      "item": "farmersdelight:tomato",
+      "result": "farmersdelight:rotten_tomato",
+      "time": 100
+    },
+    {
+      "item": "minecraft:rotten_flesh",
+      "result": "none"
+    },
+    {
+      "item": "minecraft:spider_eye",
+      "result": "none"
+    },
+    {
+      "item": "minecraft:poisonous_potato",
+      "result": "none"
+    },
+    {
+      "item": "dungeonsdelight:gritty_flesh",
+      "result": "none"
+    },
+    {
+      "item": "dungeonsdelight:brined_flesh",
+      "result": "none"
+    },
+    {
+      "item": "dungeonsdelight:rotten_tripe",
+      "result": "none"
+    },
+    {
+      "item": "dungeonsdelight:spider_meat",
+      "result": "none"
+    }
+  ]
+}
+
+
+

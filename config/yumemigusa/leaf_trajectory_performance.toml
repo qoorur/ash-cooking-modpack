@@ -1,0 +1,21 @@
+__cfg_version = 0
+#Enable GPU render takeover for leaf particles when available, while keeping cached CPU-like dynamics for trajectory consistency.
+useGpuTrajectoryWhenAvailable = false
+#CPU optimization preset.
+cpuOptimizationLevel = "BALANCED"
+#Skip expensive tumble animation for far leaves.
+skipTumbleWhenFar = true
+#Enable environment multiplier cache.
+environmentCacheEnabled = true
+#How to integrate with the FallingLeaves mod when installed.
+fallingLeavesCompatMode = "OVERLAY"
+#Maximum tumble distance when distance culling is enabled.
+tumbleMaxDistance = 96.0
+#Ticks between render-side tumble resampling.
+renderSampleIntervalTicks = 2
+#Use real-time smooth interpolation for animation phases; disable to use tick-locked timing.
+smoothInterpolation = true
+#Reuse physics cached wind in render to reduce per-frame cost.
+reusePhysicsWindForRender = true
+#Ticks between physics wind/environment resampling.
+physicsSampleIntervalTicks = 1

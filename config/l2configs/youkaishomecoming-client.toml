@@ -1,0 +1,16 @@
+[power_info]
+	# Default: 1
+	# Range: -1 ~ 1
+	powerInfoXAnchor = 1
+	# Default: -8
+	# Range: -1000 ~ 1000
+	powerInfoXOffset = -8
+	# Default: 0
+	# Range: -1 ~ 1
+	powerInfoYAnchor = 0
+	# Default: 0
+	# Range: -1000 ~ 1000
+	powerInfoYOffset = 0
+
+[blocks]
+	disableCompositeBlocks = false

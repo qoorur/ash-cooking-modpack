@@ -1,0 +1,63 @@
+	[entity_loot.twilightforest_entity_loot]
+		#Drop chances for Goblin Essence from Redcap [no Looting, Looting I, Looting II, Looting III]
+		redcapGoblinEssenceLootingChances = [0.15, 0.2, 0.25, 0.3]
+		#Minimum bonus drops per Looting level for Redcap and Redcap Sapper
+		# Default: 1
+		# Range: 0 ~ 10
+		redcapLootingBonusMin = 1
+		#Maximum bonus drops per Looting level for Redcap and Redcap Sapper
+		# Default: 1
+		# Range: 0 ~ 10
+		redcapLootingBonusMax = 1
+
+	[entity_loot.aether_entity_loot]
+		#Chance for Valkyrie Queen to drop Angel Wings
+		# Default: 1.0
+		# Range: 0.0 ~ 1.0
+		angelWingsDropChance = 1.0
+		#Minimum number of Angel Wings dropped by Valkyrie Queen
+		# Default: 1
+		# Range: 0 ~ 64
+		angelWingsDropMin = 1
+		#Maximum number of Angel Wings dropped by Valkyrie Queen
+		# Default: 1
+		# Range: 0 ~ 64
+		angelWingsDropMax = 1
+
+[block_loot]
+	#Chances for Crimson Nylium to drop Crimson Fungal Sap [no Fortune, Fortune I, Fortune II, Fortune III]
+	crimsonNyliumFungalSapChances = [0.05, 0.075, 0.1, 0.15]
+	#Base count of Crimson Fungal Sap dropped from Crimson Nylium
+	# Default: 1
+	# Range: 0 ~ 64
+	crimsonNyliumFungalSapCount = 1
+	#Chances for Warped Nylium to drop Warped Fungal Sap [no Fortune, Fortune I, Fortune II, Fortune III]
+	warpedNyliumFungalSapChances = [0.05, 0.075, 0.1, 0.15]
+	#Base count of Warped Fungal Sap dropped from Warped Nylium
+	# Default: 1
+	# Range: 0 ~ 64
+	warpedNyliumFungalSapCount = 1
+	#Chance for grass to drop Hop Seed when broken
+	# Default: 0.05
+	# Range: 0.0 ~ 1.0
+	grassHopSeedDropChance = 0.05
+
+[anvil_drop_recipes]
+	#Minimum output amount when converting Tuff to Carbocretin Powder via Anvil Drop (set 0 to disable)
+	# Default: 1
+	# Range: 0 ~ 64
+	anvilTuffToCarbocretinMinOutput = 1
+	#Maximum output amount when converting Tuff to Carbocretin Powder via Anvil Drop (set 0 to disable)
+	# Default: 3
+	# Range: 0 ~ 64
+	anvilTuffToCarbocretinMaxOutput = 3
+
+[easter_eggs]
+	#Chance to drop String Lights(Bedrock) when falling on Bedrock
+	# Default: 0.015
+	# Range: 0.0 ~ 1.0
+	bedrockFallDropChance = 0.015
+	#Chance for Wither to drop String Lights(Command Block)
+	# Default: 0.015
+	# Range: 0.0 ~ 1.0
+	witherCommandLightsDropChance = 0.015

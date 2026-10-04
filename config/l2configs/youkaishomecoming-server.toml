@@ -1,0 +1,144 @@
+[food_effect]
+	# Default: 60
+	# Range: 0 ~ 10000
+	higiHealingPeriod = 60
+	# Default: 2.0
+	# Range: 1.0 ~ 100.0
+	fairyHealingFactor = 2.0
+
+[suwako_hat]
+	# Default: 3
+	# Range: 1 ~ 10
+	frogEatCountForHat = 3
+	# Default: 20
+	# Range: 1 ~ 64
+	frogEatRaiderVillagerSightRange = 20
+	# Default: 10
+	# Range: 1 ~ 64
+	frogEatRaiderVillagerNoSightRange = 10
+
+[koishi_attack]
+	koishiAttackEnable = true
+	# Default: 6000
+	# Range: 1 ~ 1000000
+	koishiAttackCoolDown = 6000
+	# Default: 0.001
+	# Range: 0.0 ~ 1.0
+	koishiAttackChance = 0.001
+	# Default: 100
+	# Range: 0 ~ 100000000
+	koishiAttackDamage = 100
+	# Default: 3
+	# Range: 0 ~ 100
+	koishiAttackBlockCount = 3
+	# Default: 200
+	# Range: 0 ~ 100000
+	koishiHatCooldown = 200
+
+[danmaku_battle]
+	# Default: 0.02
+	# Range: 0.0 ~ 1.0
+	danmakuMinPHPDamage = 0.02
+	# Default: 0.1
+	# Range: 0.0 ~ 1.0
+	danmakuPlayerPHPDamage = 0.1
+	# Default: 0.2
+	# Range: 0.0 ~ 1.0
+	danmakuHealOnHitTarget = 0.2
+	#Enable extra damage cool down on some youkai
+	enableExtraCoolDown = true
+	# Default: 10
+	# Range: 4 ~ 20
+	danmakuMaxResource = 10
+	# Default: 4
+	# Range: 1 ~ 20
+	danmakuMaxPower = 4
+	# Default: 0.25
+	# Range: 0.0 ~ 1.0
+	danmakuPowerBonus = 0.25
+	# Default: 1.0
+	# Range: 0.0 ~ 10.0
+	grazeEffectiveness = 1.0
+	# Default: 60
+	# Range: 10 ~ 100
+	missInvulTime = 60
+	# Default: 30
+	# Range: 10 ~ 100
+	bombInvulTime = 30
+	# Default: 1.0
+	# Range: 0.0 ~ 10.0
+	maxPowerLossOnMiss = 1.0
+	# Default: 2
+	# Range: 0 ~ 10
+	initialResource = 2
+	# Default: 1
+	# Range: 0 ~ 10
+	initialPower = 1
+
+[fairy]
+	fairyAttackYoukaified = true
+	# Default: 0.5
+	# Range: 0.0 ~ 1.0
+	fairySummonReinforcement = 0.5
+
+[reimu]
+	reimuSummonFlesh = true
+	reimuSummonKill = true
+	reimuSummonMoney = true
+	# Default: 8
+	# Range: 1 ~ 100000
+	reimuSummonCost = 8
+	reimuHairbandFlightEnable = true
+
+[effect_modifiers]
+	#Changes to these values require a game restart to take effect
+	# Default: 20.0
+	# Range: 0.0 ~ 1000.0
+	youkaifiedHealthBonus = 20.0
+	# Default: 0.5
+	# Range: 0.0 ~ 100.0
+	youkaifiedAttackBonus = 0.5
+	# Default: 0.3
+	# Range: 0.0 ~ 100.0
+	youkaifiedSpeedBonus = 0.3
+	# Default: -0.5
+	# Range: -1.0 ~ 100.0
+	fairyHealthReduction = -0.5
+	# Default: -0.5
+	# Range: -1.0 ~ 100.0
+	fairyAttackReduction = -0.5
+	# Default: 0.2
+	# Range: -1.0 ~ 100.0
+	fairySpeedBonus = 0.2
+	# Default: -0.5
+	# Range: -1.0 ~ 1.0
+	fairyHitboxReduction = -0.5
+
+[rumia]
+	exRumiaConversion = true
+	rumiaHairbandDrop = true
+
+[compat]
+	curiosSupportEnabled = true
+
+[natural_spawn]
+	spawnDeer = true
+	spawnBoar = true
+	spawnTuna = true
+	spawnCrab = true
+	spawnLamprey = true
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	spawnDeerRate = 1.0
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	spawnBoarRate = 1.0
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	spawnTunaRate = 1.0
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	spawnLampreyRate = 1.0
+
+[blocks]
+	disableComposeMechanic = true

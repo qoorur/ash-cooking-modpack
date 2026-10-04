@@ -1,0 +1,10 @@
+{
+  "panel": "ash_tooltips:grade4",
+  "frame": "obscure_tooltips:default",
+  "icon": "obscure_tooltips:default",
+  "slot": "obscure_tooltips:default",
+  "effects": [
+    "ash_tooltips:grade4_ray",
+    "ash_tooltips:grade4_shimmer"
+  ]
+}

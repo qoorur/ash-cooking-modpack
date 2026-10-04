@@ -1,0 +1,20 @@
+#为竖半砖方块添加覆雪模型。
+[es_x_quark]
+	#Enable compat package es_x_quark
+	Enable = true
+	#This package will be loaded first.
+	PriorityLoading = false
+
+#为"田园调酿！"增加季节和湿度兼容。
+[es_dp_x_concoction]
+	#Enable compat package es_dp_x_concoction
+	Enable = true
+	#This package will be loaded first.
+	PriorityLoading = false
+
+#为 Terralith 添加群系颜色与气候修正。
+[es_x_terralith]
+	#Enable compat package es_x_terralith
+	Enable = true
+	#This package will be loaded first.
+	PriorityLoading = false

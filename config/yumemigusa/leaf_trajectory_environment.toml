@@ -1,0 +1,29 @@
+#Extra wind when exposed to precipitation.
+precipitationExposureBoost = 0.2
+#Wind damping under shelter.
+shelterDamping = 0.78
+#Thunder contribution to wind.
+thunderWindInfluence = 0.65
+#Rain contribution to wind.
+rainWindInfluence = 0.3
+#Altitude influence on wind.
+altitudeInfluence = 0.18
+#Seasonal wind lower bound.
+seasonalWindMin = 0.9
+#Wind boost in open sky.
+openSkyBoost = 1.1
+__cfg_version = 0
+#Environment cache spatial cell size.
+environmentCacheCellSize = 4
+#Maximum environment multiplier.
+maxEnvironmentMultiplier = 1.6
+#Minimum environment multiplier.
+minEnvironmentMultiplier = 0.7
+#Temperature influence on wind.
+temperatureInfluence = 0.12
+#Enable daily seasonal wind cycle.
+seasonalCycleEnabled = true
+#Environment cache time step.
+environmentCacheTickStep = 6
+#Seasonal wind upper bound.
+seasonalWindMax = 1.2

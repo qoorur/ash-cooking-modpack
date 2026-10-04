@@ -1,0 +1,36 @@
+#Kaleidoscope Flora - Gameplay Settings
+#森罗物语：花香四溢 - 玩法设置
+[effects]
+	#Multiplier for all drink effect durations.
+	#1.0 = normal, 0.5 = half duration, 2.0 = double duration.
+	#全部花饮效果时长的倍率。1.0 = 正常，0.5 = 一半时长，2.0 = 两倍时长。
+	# Default: 1.0
+	# Range: 0.25 ~ 4.0
+	effectDurationMultiplier = 1.0
+	#Multiplier for aura effect ranges.
+	#Affects Drowsy, Wither Aura, Gaze, and Fadeaway.
+	#1.0 = normal, 0.5 = half range, 2.0 = double range.
+	#光环类效果范围的倍率（安眠曲、凋零光环、凝视、消隐）。1.0 = 正常，0.5 = 一半范围，2.0 = 两倍范围。
+	# Default: 1.0
+	# Range: 0.25 ~ 3.0
+	auraRangeMultiplier = 1.0
+
+#Kaleidoscope Flora - Combat Settings
+#森罗物语：花香四溢 - 战斗设置
+[combat]
+	#Percent of melee damage healed by the Crimson Heartbeat vampiric effect.
+	#20 = 20% of damage as healing (default).
+	#绯色心跳吸血效果：近战伤害转化为生命回复的百分比。20 = 吸血 20%（默认）。
+	# Default: 20.0
+	# Range: 0.0 ~ 100.0
+	vampiricHealPercent = 20.0
+
+#Kaleidoscope Flora - Farming Settings
+#森罗物语：花香四溢 - 农耕设置
+[farming]
+	#Maximum crop-drop multiplier for the Autumn Serenade harvest effect.
+	#4 = up to 4x drops (default), 2 = up to 2x, 8 = up to 8x.
+	#秋日小夜曲收割效果的掉落上限倍率。4 = 最高 4 倍掉落（默认），2 = 最高 2 倍，8 = 最高 8 倍。
+	# Default: 4
+	# Range: 2 ~ 8
+	harvestMaxDropMultiplier = 4

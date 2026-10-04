@@ -1,0 +1,25 @@
+#Inventory Advancement Accelerator common configuration.
+#Master switch. False always preserves the vanilla trigger.
+enabled = true
+#EXACT preserves vanilla timing. AGGRESSIVE is experimental and may change trigger timing.
+mode = "EXACT"
+#Fraction of optimized events compared with a complete listener scan.
+# Default: 0.001
+# Range: 0.0 ~ 1.0
+shadowVerifyRate = 0.001
+#Force verification after this many server ticks; 0 disables it.
+# Default: 200
+# Range: 0 ~ 72000
+periodicFullScanTicks = 200
+#Compatibility option retained from 1.0.0; unknown plans are always evaluated safely.
+fallbackOnUnknownPredicate = true
+#Use vanilla for calls outside the server thread.
+fallbackOnOffThreadCall = true
+#Disable a player's index after any shadow mismatch.
+disableOnMismatch = true
+#Server-wide main-thread budget used to build unpublished player indexes each tick.
+# Default: 1000
+# Range: 100 ~ 5000
+indexWarmupBudgetMicrosPerTick = 1000
+metricsEnabled = true
+debugLogging = false

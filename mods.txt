@@ -1,0 +1,144 @@
+﻿[Xaero] XaeroPlus-2.35.1+neoforge-1.21.1-WM1.44.2-MM26.4.2.jar
+[Xaero] xaeroworldmap-neoforge-1.21.1-1.44.2.jar
+[Xaero][Xaero · 小地图] xaerominimap-neoforge-1.21.1-25.3.10.jar
+[地形]tectonic-3.0.26-neoforge-21.1.jar
+[地形]Terralith_1.21.x_v2.6.2.jar
+[地形]wwoo-neoforge-2.6.7.jar
+[钓鱼][潮汐] tide-neoforge-1.21.1-2.1.1.jar
+[额外乐事] extradelight-2.6.6.jar
+[辅助][JEI][JEI物品管理器] jei-1.21.1-neoforge-19.27.0.340.jar
+[辅助][JEI][JEI药水效果] jeed-1.21-2.3.2.jar
+[辅助][JEI]jei_plus_plus-1.0.3-1.21.1.jar
+[辅助][多态合成] polymorph-neoforge-1.1.0+1.21.1.jar
+[辅助][简单备份] SimpleBackups-1.21-4.0.30.jar
+[辅助][旅人标题] TravelersTitles-1.21.1-NeoForge-5.1.3.jar
+[辅助][帕秋莉手册] Patchouli-1.21.1-93-NEOFORGE.jar
+[辅助][玉 · 附加] JadeAddons-1.21.1-NeoForge-6.1.0.jar
+[辅助][玉] Jade-1.21.1-NeoForge-15.10.5.jar
+[辅助][自定义局域网联机] lanserverproperties-1.13.2-neoforge.jar
+[辅助]colorfulhearts-neoforge-1.21.1-10.5.9.jar
+[辅助]fancytoasts-neoforge-1.21.1-1.4.7.jar
+[高级战利品信息显示] AdvancedLootInfo-neoforge-1.21.1-2.1.0.jar
+[机械动力] [齿轮与麦穗] create_ratatouille-1.21.1-1.3.9-2.jar
+[机械动力] [齿轮与麦穗的炸物拓展] ratatouille_fried_delights-1.0.4.jar
+[机械动力] [创想附加] createaddition-1.6.0.jar
+[机械动力] create-1.21.1-6.0.10.jar
+[机械动力][飞轮 · 光影兼容补丁] colorwheel_patcher-neoforge-1.0.5+mc1.21.1.jar
+[机械动力][更多装饰] Design-n-Decor-1.21.1-2.1.0.jar
+[机械动力][更好的FPS] createbetterfps-1.21.1-1.1.5.jar
+[机械动力][流体包裹] fluidlogistics-1.2.7.jar
+[机械动力][油物] createbicbit-forge-1.21.1-1.0.2B.jar
+[机械动力][装饰] createdeco-2.1.2.jar
+[机械动力]colorwheel-neoforge-1.2.6+mc1.21.1.jar
+[机制]lootr-neoforge-1.21.1-1.11.38.125.jar
+[家具][MrCrayfish 的家具：重制] refurbished_furniture-neoforge-1.21.1-1.0.22.jar
+[家具]cfm_wap-1.21.1-neoforge-1.2.0.jar
+[家具]furniture_mod_tools_refurbished-1.0.0-neoforge-1.21.1.jar
+[惊悚乐事] frightsdelight-neoforge-1.21.1-1.4.8.jar
+[冒险][维度]Jadens-Nether-Expansion-2.4.1.jar
+[冒险]alexscavesup-0.1.2.jar
+[冒险]curios-neoforge-9.5.1+1.21.1.jar
+[冒险]hollowmarch-1.3.0-mc1.21.1-neoforge.jar
+[魔改][犀牛] rhino-2101.2.7-build.81.jar
+[魔改][游戏内NBT编辑器重制版] nbtedit-neoforge-5.2.11.jar
+[魔改]AdvancedCoreInfo-neoforge-1.21.1-1.1.0.jar
+[魔改]better-advanced-tooltips-2101.1.0-build.5.jar
+[魔改]historystages-5.6.1-1.21.1.jar
+[魔改]jupiter-2.3.7-1.21.1-neoforge.jar
+[魔改]kubejs-neoforge-2101.7.2-build.377.jar
+[魔改]lootjs-neoforge-1.21.1-3.7.0.jar
+[魔改]oneenoughitem-neoforge-1.21.1-1.0.8.jar
+[魔改]ProbeJS-8.0.3.jar
+[女仆][车万女仆] touhoulittlemaid-1.5.3-neoforge+mc1.21.1.jar
+[前置[地牢乐事] neoforge-runiclib-1.21.1-5.0.6.jar
+[前置][Alex]citadelup-0.2.0-neoforge-1.21.1.jar
+[前置][潮汐]cloth-config-15.0.140-neoforge.jar
+[前置][地形]lithostitched-1.7.13-neoforge-21.1.jar
+[前置][开箱]OctoLib-NEOFORGE-0.6.2+1.21.jar
+[前置][夸克]Zeta-1.1-40.jar
+[前置][冷汗]GlitchCore-neoforge-1.21.1-2.1.0.0.jar
+[前置][魔改 Reliable_recipes]yet_another_config_lib_v3-3.8.2+1.21.1-neoforge.jar
+[前置][日式][妖怪之山通用库] mysterious_mountain_lib-1.2.15-1.21.1.jar
+[前置][生机遍布]teallib-1.3.teal.jar
+[前置][生物群系播报]YungsApi-1.21.1-NeoForge-5.1.6.jar
+[前置][通用] architectury-13.0.8-neoforge.jar
+[前置][通用]blueprint-1.21.1-8.1.0.jar
+[前置][通用]framework-neoforge-1.21.1-0.13.11.jar
+[前置][香草]moonlight-neoforge-1.21.1-3.4.1.jar
+[前置]cristellib-neoforge-1.21.1-3.1.7.jar
+[前置]ElysiumAPI-1.21.1-2.0.1.jar
+[前置]geckolib-neoforge-1.21.1-4.9.3.jar
+[前置]knightlib-neoforge-1.21.1-2.0.1.jar
+[前置]lodestone-1.21.1-1.8.2.jar
+[前置]OELib-neoforge-1.21.1-0.2.3.jar
+[前置]Platform-neoforge-1.21.1-1.3.3.jar
+[日式]youkaishomecoming-4.2.14.jar
+[生机遍布] spawn-4.0.7-1.21.1.jar
+[生物][同伴！] companions-neoforge-1.21.1-1.3.4.jar
+[生物][自然主义] naturalist-2.0.3-neoforge-1.21.1.jar
+[生物]alexsmobsup-0.3.0-neoforge-1.21.1.jar
+[食物][生活调味料：胡萝卜版] solcarrot-1.21.1-1.16.6.jar
+[食物][田园调酿！] concoction-1.6.2-neoforge (1.21-1.21.1).jar
+[食物-农夫乐事] FarmersDelight-1.21.1-1.3.4.jar
+[食物-农夫乐事][摆放乐事] displaydelight-1.7.0.jar
+[食物-农夫乐事][地牢乐事] neoforge-dungeonsdelight-1.21.1-1.5.0.jar
+[食物-农夫乐事][末地乐事] ends_delight-2.5.1+neoforge.1.21.1.jar
+[食物-农夫乐事][千古乐事] immortalers_delight-1.21.1-neoforge-1.1.0.jar
+[食物-农夫乐事][下界乐事] MyNethersDelight-1.21.1-1.10.41.jar
+[食物-农夫乐事]alexsmobsdelight-1.1.0-neoforge.8.jar
+[食物-农夫乐事]jadensnetherexpansiondelight-1.21.1-1.0.4a-neoforge.jar
+[食物-配置]tastejournal-neoforge-1.21.1-latest.jar
+[食物-森罗厨房][末地] kaleidoscope_end-1.0.12-neoforge+mc1.21.1.jar
+[食物-森罗厨房][森罗厨房：国味] kaleidoscope_chinesefood-1.1.11-neoforge+1.21.1.jar
+[食物-森罗厨房][森罗物语：兼容] kaleidoscope_compat-2.9.7-neoforge+mc1.21.1-Patch.jar
+[食物-森罗厨房][森罗物语：热气] kaleidoscope_grilling-1.1.1-neoforge1.21.1.jar
+[食物-森罗厨房][下界] kaleidoscope_nether-1.1.1-neoforge+mc1.21.1.jar
+[食物-森罗厨房]Kaleidoscope Texture Expansion-2.8.0-1.21.1.jar
+[食物-森罗厨房-花卉]kaleidoscope-flora-0.3.0.jar
+[食物-森罗酒馆][kaleidoscopetavern-1.2.0-neoforge+mc1.21.1.jar
+[食物-森罗酒馆][森罗酒馆：世界名酒] kaleidoscope_world_liquor-1.1.7-neoforge+1.21.1.jar
+[食物-森罗酒馆][森罗物语：次元酒窖] kaleidoscope_dim_wine-1.5.3-mc1.21.1-neoforge.jar
+[食物-森罗酒馆][食物][森罗物语]creategearsandtavern-1.1.8.jar
+[食物-森罗物语：厨房] kaleidoscopecookery-1.5.1-neoforge+mc1.21.1.jar
+[食物-森罗物语：动态结构] kaleidoscope_contraption-1.0.3.jar
+[图鉴]fieldguide-neoforge-1.21.1-1.16.0.jar
+[图鉴]immersiveoverlays-1.8.3+1.21.1-neoforge.jar
+[图鉴]item_descriptions-2.8.0+1.21.1-neoforge.jar
+[温度&季节][节气] EclipticSeasons-1.21.1-neoforge-0.14.99.jar
+[温度与季节] Spoiled-neoforge-1.21.1-6.2.2.jar
+[温度与季节][节气：捆绑包] EclipticSeasons-Bundles-0.17.1.jar
+[温度与季节][冷汗] ColdSweat-2.4.2.jar
+[温度与季节]Ecliptic-Seasons-MultiMod-Patch-1.21.1-neoforge-0.32.0.jar
+[下单了] ordertocook-1.3.6-neoforge1.21.1.jar
+[香草][锦致装饰] supplementaries-neoforge-1.21.1-3.8.4.jar
+[香草][夸克] Quark-4.1-481.jar
+[香草][森罗物语：玩偶] kaleidoscopedoll-1.4.0-neoforge+mc1.21.1.jar
+[香草][烟花苦力怕] CreeperFirework-neoforge-2.2.0.jar
+[香草]amendments-1.21-2.0.15-neoforge.jar
+[香草]just_dandy-1.21.1-3.0.4.jar
+[香草]milky_way-1.21.1-3.0.0.jar
+[香草]QuarkPonders-1.5.1_NeoForge-1.21.1.jar
+[香草]wilderflowers-1.1.0+1.21.1-neoforge.jar
+[优化][grek模型优化]gbf-1.21.1-1.0.2.jar
+[优化][鈇] flerovium-neoforge-1.21.1-1.1.0-all.jar
+[优化][粒子雨] particlerain-4.0.0-beta.10+1.21.1-neoforge.jar
+[优化][钠] sodium-neoforge-0.8.12+mc1.21.1.jar
+[优化][配置界面] configured-neoforge-1.21.1-2.6.3.jar
+[优化][实体渲染机制优化] entityculling-neoforge-1.10.1-mc1.21.1.jar
+[优化][输入法冲突修复] IMBlocker-5.5.1-neoforge+1.20.6-1.21.8.jar
+[优化][现代化修复] modernfix-neoforge-5.27.7+mc1.21.1.jar
+[优化][自动汉化更新] I18nUpdateMod-3.7.0-all.jar
+[优化]byepregen-1.1.2.5.jar
+[优化]ferritecore-7.0.3-neoforge.jar
+[优化]invadvopt-1.21.1-1.0.3.jar
+[优化]iris-neoforge-1.8.14-beta.1+mc1.21.1.jar
+[优化]lightspeed-1.21.1-1.2.0hotfix3.jar
+[优化]Not Enough Recipe Book-NEOFORGE-0.4.3+1.21.jar
+[优化]quick-pack-neoforge-1.3.3+1.21.8.jar
+[优化]seasonhud-neoforge-1.21.1-2.0.6.jar
+[优化]Yumemigusa-neoforge-1.21.1-1.0.0.jar
+ash_kaleidoscope_kitchen_wok-1.0.0.jar
+ash_spoiled_ot_compat-1.0.0.jar
+entityjs-1.5.1.jar
+fragmentum-5.0.0+1.21.1-neoforge.jar
+obscure_tooltips-neoforge-1.21.1-4.2.5.jar

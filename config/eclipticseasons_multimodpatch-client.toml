@@ -1,0 +1,10 @@
+#Particle Rain
+[particlerain]
+	Enable = true
+	#Change the amount of particles when raining.
+	ChangeAmount = true
+
+#Create
+[create]
+	#Render seasonal snow on exposed Create contraption blocks.
+	Enable = true

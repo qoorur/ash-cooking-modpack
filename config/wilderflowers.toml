@@ -1,0 +1,12 @@
+# Chance of mobs in garland_wearers spawning with flower garlands
+# default: 0.05
+garlandChance = 0.05
+# Chance of mobs in garland_wearers spawning with flower garlands in frequent_garland biomes
+# default: 0.35
+highGarlandChance = 0.35
+# Mobs in garland_wearers wearing flower garlands are neutral
+# default: false
+garlandWearersNeutral = false
+# Mobs in garland_wearers wearing flower garlands are passive. If true, overrides garlandWearersNeutral
+# default: false
+garlandWearersPassive = false

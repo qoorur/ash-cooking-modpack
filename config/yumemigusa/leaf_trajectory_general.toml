@@ -1,0 +1,13 @@
+#Initial downward speed multiplier.
+initialFallSpeedMultiplier = 0.9
+__cfg_version = 0
+#Leaf particle lifetime multiplier.
+lifetimeMultiplier = 1.4
+#Global wind strength multiplier.
+globalWindStrength = 1.1
+#Leaf particle size multiplier.
+sizeMultiplier = 1.2
+#Global visibility/intensity boost.
+visibilityBoost = 1.35
+#Enable custom leaf trajectory system.
+enabled = true

@@ -1,0 +1,33 @@
+#Base flutter lift.
+liftBase = 7.0E-4
+#Extra acceleration in strong wind.
+stormBoostMultiplier = 0.6
+#Maximum friction cap.
+maxFriction = 1.0
+#Extra friction per wind unit.
+stormFrictionScale = 0.0065
+#Wind threshold for friction boost.
+frictionStormThreshold = 1.08
+#Base horizontal side force.
+baseSideStrength = 2.2
+#Lift contribution from wind strength.
+liftWindInfluence = 2.0E-4
+__cfg_version = 0
+#Base gust amount.
+gustBase = 0.3
+#Lift contribution from horizontal speed.
+liftSpeedInfluence = 3.5E-4
+#Horizontal acceleration multiplier.
+horizontalAccelerationMultiplier = 1.2
+#Lift oscillation scale.
+liftOscillationScale = 1.0
+#Gust growth with age.
+gustAgeMultiplier = 0.85
+#Gust age exponent.
+gustAgeExponent = 1.15
+#Micro jitter strength.
+horizontalMicroJitter = 0.2
+#Age envelope sharpness for lift.
+liftAgeEnvelopeSharpness = 0.5
+#Base airborne friction.
+baseFriction = 0.98

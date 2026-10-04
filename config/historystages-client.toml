@@ -1,0 +1,83 @@
+#Found a bug or have a feature request?
+#Report it on GitHub: https://github.com/Flix100000/History-Stages/issues
+#
+#Visual and UI settings (Individual for each player)
+[visuals]
+	#Show information tooltips on locked items? [Default: true]
+	showTooltips = true
+	#If tooltips are enabled, show the name of the required stage? [Default: true]
+	showStageName = true
+	#If an item is in multiple stages, show all of them until all are unlocked? [Default: true]
+	showAllUntilComplete = true
+	#Show a lock icon overlay on locked items in JEI/EMI and Inventories? [Default: true]
+	showLockIcons = true
+	#Show a tooltip on Research Pedestal booster blocks describing their speed/cost effect? [Default: true]
+	showBoosterTooltips = true
+	#Show the minimum required Pedestal tier on Research Scroll tooltips? [Default: true]
+	showScrollTierTooltip = true
+	#How far the world behind an open scroll is dimmed, in percent.
+	#0 = not at all, 100 = black. [Default: 60]
+	# Default: 60
+	# Range: 0 ~ 100
+	openScrollBackdrop = 60
+
+#Visual feedback for locked structures (border + overlay)
+[structure_overlay]
+	#Render a force-field-style border on the walls of locked structures when you get close? [Default: true]
+	structureBorderEnabled = true
+	#How close (in blocks) to a locked structure wall before the border becomes visible. The border fades in as you approach. [Default: 8.0]
+	# Default: 8.0
+	# Range: 1.0 ~ 32.0
+	structureBorderDistance = 8.0
+	#While standing inside a locked structure, tint the whole screen red (like looking through red glasses) to signal the lock? [Default: true]
+	structureLockOverlayEnabled = true
+	#Opacity of the red lock-overlay (0.0 = invisible, 1.0 = fully opaque). [Default: 0.30]
+	# Default: 0.3
+	# Range: 0.0 ~ 1.0
+	structureLockOverlayOpacity = 0.3
+
+#Settings for Jade block overlay (requires Jade mod)
+[jade]
+	#Show stage information on locked blocks in the Jade overlay? [Default: true]
+	showInfo = true
+	#If Jade info is enabled, show the name of the required stage? [Default: true]
+	showStageName = true
+	#If a block is in multiple stages, show all of them until all are unlocked? [Default: true]
+	showAllUntilComplete = true
+
+#Settings for dimension access feedback
+[dimension_lock]
+	#Show a simple 'Dimension Locked' message in the actionbar? [Default: true]?
+	useActionbar = true
+	#Show the dimension lock message in the chat? [Default: false]
+	showInChat = false
+	#If dimShowChat is true, should the required stages also be listed? [Default: true]
+	showStagesInChat = true
+
+#Settings for mob damage lock feedback
+[mob_lock]
+	#Show a 'Mob Protected' message in the actionbar? [Default: true]
+	useActionbar = true
+	#Show the mob lock message in the chat? [Default: false]
+	showInChat = false
+	#If mobShowChat is true, should the required stages also be listed? [Default: true]
+	showStagesInChat = true
+
+#Individual Stage Visual Settings
+[individual_stages]
+	#Show a silver lock icon on items locked by individual stages? [Default: true]
+	showSilverLockIcons = true
+	#Show tooltip information for items locked by individual stages? [Default: true]
+	showIndividualTooltips = true
+
+#JEI integration — fully hide locked items/recipes instead of using the lock overlay
+[jei_hiding]
+	#Remove locked items from the JEI ingredient panel entirely. [Default: false]
+	hideLockedItemsInJei = false
+	#Hide recipes whose OUTPUT is a locked item in JEI. [Default: false]
+	hideLockedRecipesInJei = false
+	#How to treat items assigned to multiple stages:
+	#STRICT  = locked while ANY assigned stage is still locked (default).
+	#LENIENT = unlocked as soon as ANY assigned stage is unlocked.
+	#Allowed Values: STRICT, LENIENT
+	lockedItemMultiStagePolicy = "STRICT"

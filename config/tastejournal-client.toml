@@ -1,0 +1,17 @@
+#Show the travel-recipe card when a food is tasted for the first time.
+popupEnabled = true
+#Let the tasting card close itself after enough reading time.
+autoDismiss = true
+#How many seconds the tasting card remains before closing automatically.
+# Default: 18
+# Range: 5 ~ 120
+durationSeconds = 18
+#Width scale of the tasting card.
+# Default: 1.0
+# Range: 0.75 ~ 1.5
+popupSize = 1.0
+#Anchor position of the tasting card.
+#Allowed Values: TOP_LEFT, TOP_RIGHT, CENTER_LEFT, CENTER_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+popupPosition = "CENTER_RIGHT"
+#Use a short opacity-only transition instead of movement and reveal.
+reducedMotion = false

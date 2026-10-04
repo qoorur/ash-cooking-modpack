@@ -1,0 +1,59 @@
+# ===== 不纳入版本控制 =====
+shaderpacks/
+
+# ===== 运行时 / 缓存 / 日志 =====
+logs/
+*.log
+*.log.gz
+crash-reports/
+cache/
+local/
+laser-cache/
+lightspeed-cache/
+dynamic-data-pack-cache/
+dynamic-resource-pack-cache/
+fieldguide_cache/
+.pob/
+.probe/
+.sable/
+.mixin.out/
+*.natives/
+
+# ===== 游戏本体 / 存档 / 个人数据 =====
+*.jar
+saves/
+backups/
+simplebackups/
+usercache.json
+usernamecache.json
+command_history.txt
+servers.dat
+servers.dat_old
+realms_persistence.json
+ponders_watched.json
+
+# ===== 皮肤 / 地图 / 第三方 =====
+PCL/
+CustomSkinLoader/
+xaero/
+XaeroWaypoints_BACKUP*/
+
+# ===== 反编译 / 临时脚本 =====
+*_decomp*/
+*_decomp_tmp/
+*decomp_tmp/
+tmp_*/
+tmp_gen.py
+_match*.py
+_report*.json
+_create/*
+
+# ===== 系统 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 编辑器 =====
+.vscode/
+.idea/
+
