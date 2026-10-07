@@ -84,6 +84,9 @@
     "locked_entity_item": true,
     "locked_block": true
   },
+  "pastoralcraft": {
+    "crop_season": true
+  },
   "kaleidoscope_chinesefood": {
     "pickle_jar": true
   },
@@ -97,12 +100,6 @@
     "registry_name": "OFF",
     "block_properties": false,
     "mod_name": true
-  },
-  "delighto_flight": {
-    "crop_progress": true
-  },
-  "tsuki": {
-    "machine_info": true
   },
   "kaleidoscope_doll": {
     "doll_block": true,
@@ -124,10 +121,6 @@
   },
   "spawn": {
     "stickbug_as_item": true
-  },
-  "exposure": {
-    "lightroom": true,
-    "photograph_frame": true
   },
   "jadeaddons.lootr": {
     "info": true

@@ -1,0 +1,74 @@
+[
+  {
+    "comment": "馒头",
+    "matchItems": [
+      "youkaishomecoming:mantou"
+    ],
+    "resultItems": "kaleidoscope_cookery:mantou"
+  },
+  {
+    "comment": "麻婆豆腐",
+    "matchItems": [
+      "kaleidoscope_nether:mapo_tofu",
+      "youkaishomecoming:mapo_tofu"
+    ],
+    "resultItems": "youkaishomecoming:mapo_tofu"
+  },
+  {
+    "comment": "海鲜味噌汤",
+    "matchItems": [
+      "kaleidoscope_cookery:seafood_miso_soup"
+    ],
+    "resultItems": "youkaishomecoming:seafood_miso_soup"
+  },
+  {
+    "comment": "味噌汤",
+    "matchItems": [
+      "extradelight:miso_soup"
+    ],
+    "resultItems": "youkaishomecoming:miso_soup"
+  },
+  {
+    "comment": "罗宋汤 -> 森罗厨房",
+    "matchItems": [
+      "extradelight:borscht",
+      "youkaishomecoming:borscht"
+    ],
+    "resultItems": "kaleidoscope_cookery:borscht"
+  },
+  {
+    "comment": "生面条",
+    "matchItems": [
+      "concoction:raw_noodles"
+    ],
+    "resultItems": "kaleidoscope_cookery:raw_noodles"
+  },
+  {
+    "comment": "乌龙茶包",
+    "matchItems": [
+      "kaleidoscope_cookery:oolong_tea_bag"
+    ],
+    "resultItems": "youkaishomecoming:oolong_tea_bag"
+  },
+  {
+    "comment": "稻草帽",
+    "matchItems": [
+      "youkaishomecoming:straw_hat"
+    ],
+    "resultItems": "kaleidoscope_cookery:straw_hat"
+  },
+  {
+    "comment": "蟹肉",
+    "matchItems": [
+      "youkaishomecoming:crab_meat"
+    ],
+    "resultItems": "naturalist:crab_meat"
+  },
+  {
+    "comment": "蟹",
+    "matchItems": [
+      "youkaishomecoming:crab"
+    ],
+    "resultItems": "naturalist:crab"
+  }
+]

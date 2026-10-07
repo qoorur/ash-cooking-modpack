@@ -31,8 +31,15 @@ ServerEvents.recipes(event => {
         return false;
     }
 
-    function extractCleanIngredient(je) {
-        if (!je || !je.isJsonObject()) return null;
+        function extractCleanIngredient(je) {
+        if (!je || je.isJsonNull()) return null;
+        // 支持数组（多选一）：取第一个元素
+        if (je.isJsonArray()) {
+            let arr = je.getAsJsonArray();
+            if (arr.size() === 0) return null;
+            je = arr.get(0);
+        }
+        if (!je.isJsonObject()) return null;
         let jo = je.getAsJsonObject();
         let clean = {};
         if (jo.has("item")) {
@@ -59,11 +66,16 @@ ServerEvents.recipes(event => {
                 continue;
             }
 
-            // 提取结果
+                        // 提取结果（读取真实数量，默认 1）
             let resultItem = null;
+            let resultCount = 1;
             if (rj.has("result")) {
                 let resObj = rj.get("result").getAsJsonObject();
                 if (resObj.has("id")) resultItem = resObj.get("id").getAsString();
+                if (resObj.has("count")) {
+                    let c = resObj.get("count").getAsInt();
+                    if (c > 0) resultCount = c;
+                }
             }
             if (!resultItem) {
                 console.log(`[跳过] ${id} - 结果为空`);
@@ -71,16 +83,10 @@ ServerEvents.recipes(event => {
                 continue;
             }
 
-            // 提取原料（单一 ingredient）
+            // 提取原料（单一 ingredient，函数内部已支持数组）
             let ingredientClean = null;
             if (rj.has("ingredient")) {
-                let ingJson = rj.get("ingredient");
-                // 支持数组（极少情况）
-                if (ingJson.isJsonArray()) {
-                    let arr = ingJson.getAsJsonArray();
-                    if (arr.size() > 0) ingJson = arr.get(0);
-                }
-                ingredientClean = extractCleanIngredient(ingJson);
+                ingredientClean = extractCleanIngredient(rj.get("ingredient"));
             }
 
             if (!ingredientClean) {
@@ -98,7 +104,7 @@ ServerEvents.recipes(event => {
             let data = {
                 id: id,
                 resultItem: resultItem,
-                resultCount: 1, // 强制结果为1
+                resultCount: resultCount,
                 ingredient: ingredientClean,
                 type: 'youkaishomecoming:steaming'
             };
@@ -116,17 +122,20 @@ ServerEvents.recipes(event => {
         let e = existingIterator.next();
         let rid = String(e.getKey());
         let r = e.getValue();
-        if (String(r.getType()) === 'kaleidoscope_cookery:steamer') {
+                if (String(r.getType()) === 'kaleidoscope_cookery:steamer') {
             let rj = r.json;
             if (rj && rj.has("ingredient") && rj.has("result")) {
+                // extractCleanIngredient 内部已支持数组
                 let ingClean = extractCleanIngredient(rj.get("ingredient"));
                 let resObj = rj.get("result").getAsJsonObject();
-                let resId = resObj.get("id").getAsString();
+                let resId = resObj.has("id") ? resObj.get("id").getAsString() : null;
+                let resCount = resObj.has("count") ? resObj.get("count").getAsInt() : 1;
+                if (resCount <= 0) resCount = 1;
                 if (ingClean && resId) {
                     existingFlex.push({
                         id: rid,
                         resultItem: resId,
-                        resultCount: 1,
+                        resultCount: resCount,
                         ingredient: ingClean
                     });
                 }
@@ -142,7 +151,8 @@ ServerEvents.recipes(event => {
                 compareIngredients(f.ingredient, src.ingredient);
         });
 
-        if (!hasFlex) {
+                if (!hasFlex) {
+            let newId = src.id + '_to_steamer';
             event.remove({ id: src.id });
             try {
                 let newR = {
@@ -150,12 +160,12 @@ ServerEvents.recipes(event => {
                     ingredient: src.ingredient,
                     result: { id: src.resultItem, count: src.resultCount }
                 };
-                event.custom(newR).id(src.id);
+                event.custom(newR).id(newId);
                 stats.converted++;
-                console.log(`[转换] ${src.id} → steamer: ${src.resultItem} | 原料: ${ingredientKey(src.ingredient)}`);
+                console.log(`[转换] ${src.id} → steamer (id: ${newId}): ${src.resultItem} x${src.resultCount} | 原料: ${ingredientKey(src.ingredient)}`);
 
                 existingFlex.push({
-                    id: src.id,
+                    id: newId,
                     resultItem: src.resultItem,
                     resultCount: src.resultCount,
                     ingredient: src.ingredient

@@ -1,0 +1,25 @@
+#方块食物效果移除开关（森罗物语食物放下成方块后，空手右键『咬一口』的逻辑）。
+#Strip potion effects when eating Kaleidoscope Cookery food blocks (the placed, bite-able form).
+[food_bite]
+	#true  = 咬森罗食物方块时【不施加】任何药水效果（默认）。
+	#false = 保持森罗原样，正常施加药水效果。
+	#注意：此项仅影响『方块形态』的食物；手持物品吃由 KubeJS startup 脚本另行处理。
+	strip_block_food_effects = true
+
+#传送带自动上菜（依赖 create + ordertocook）。
+#Belt auto-serve (requires create + ordertocook).
+[belt_delivery]
+	#true  = 记录逐 tick 的扫描细节（发现的椅子顾客、皮带格、物品命中判定、最近玩家等）。
+	#排查问题时才打开，量很大，平时请保持 false。
+	#false = 只记录关键事件（成功交付 / 无玩家跳过 / 异常）。
+	debug_logging = false
+	#true  = 启用传送带自动上菜（默认）。
+	#false = 完全关闭：tick 钩子直接返回，不做任何扫描与交付。
+	enabled = true
+
+#竹扁（kaleidoscope_cookery:bamboo_tray）行为开关。
+#Bamboo tray behavior toggles.
+[bamboo_tray]
+	#true  = 竹扁每个栏位最多只放 1 个物品（默认）：空栏位只放 1 个，已有物品的栏位不再叠加。
+	#false = 保持森罗原样（可整组放入 / 叠加到一组）。
+	single_item_per_slot = true

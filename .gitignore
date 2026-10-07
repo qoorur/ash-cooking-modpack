@@ -57,3 +57,13 @@ desktop.ini
 .vscode/
 .idea/
 
+
+# ===== mod 自动备份 / 个人缓存 / 画面设置 =====
+*.bak
+config/jei/world/local/
+config/sodium-options.json
+config/iris.properties
+
+# ===== Python 缓存 =====
+__pycache__/
+*.pyc

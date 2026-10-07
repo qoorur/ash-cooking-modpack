@@ -1,0 +1,9 @@
+[
+  {
+    "matchItems": [
+      "kaleidoscope_cookery:cooked_rice",
+      "concoction:cooked_rice"
+    ],
+    "resultItems": "farmersdelight:cooked_rice"
+  }
+]

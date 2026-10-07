@@ -1,0 +1,582 @@
+#Core growth, season and catch-up settings.
+[general]
+	#Default number of solar days required for each crop growth stage.
+	#Lower values = faster growth. Set to 0 to disable the growth delay.
+	# Default: 3
+	# Range: 0 ~ 365
+	daysPerStage = 3
+	#Global default: chance (0.0 - 1.0) that an arable crop in an unsuitable season
+	#mutates into short grass on each growth attempt. Deterministic per position +
+	#plantedDay + attempt index. Constraint: mutate + grow must be <= 1.0.
+	# Default: 0.2
+	# Range: 0.0 ~ 1.0
+	unsuitableMutateChance = 0.2
+	#Global default: chance (0.0 - 1.0) that an arable crop in an unsuitable season grows
+	#one stage on each growth attempt. The remaining probability (1 - mutate - grow)
+	#results in no growth. The sum is clamped at runtime so 'no growth' stays reachable.
+	# Default: 0.4
+	# Range: 0.0 ~ 1.0
+	unsuitableGrowChance = 0.4
+	#Number of solar days per Solar Term (节气).
+	#Ecliptic Seasons: 1 Year = 4 Seasons, 1 Season = 6 Solar Terms.
+	#Must match the Ecliptic Seasons 'LastingDaysOfEachTerm' setting (default 7 days).
+	# Default: 7
+	# Range: 1 ~ 365
+	catchUpSeasonLength = 7
+	#Per-invocation time budget (milliseconds) for a single chunk-load or periodic
+	#catch-up pass. When exceeded, remaining entries are deferred to the next cycle
+	#instead of blocking the server thread. Set to 0 to disable the budget.
+	# Default: 8
+	# Range: 0 ~ 60000
+	catchUpTimeBudgetMs = 8
+	#Upper bound (solar days) on the elapsed time a single catch-up simulation may span.
+	#Prevents the per-crop simulation loop from running unboundedly after a large
+	#Ecliptic Seasons day jump (the freeze bug). Default 336 = 2 ES years (168 days each).
+	# Default: 336
+	# Range: 1 ~ 3650
+	maxCatchUpElapsedDays = 336
+	#Default seasons for crops with no Ecliptic Seasons season info.
+	#Applies to blocks neither in the ES runtime registry nor in any crop season
+	#block tag (e.g. most mod-added crops).
+	#Format: comma-separated list of spring/summer/autumn/winter, or 'year_round'.
+	defaultUntaggedSeasons = "spring,autumn"
+
+#Global defaults for melon/pumpkin stem fruiting. Individual stems can
+#override these in their [crops] sub-section.
+[stem]
+	#Global default: solar days between each fruiting cycle of a mature stem.
+	#After a stem reaches MAX_AGE, it attempts to spawn fruit every this many
+	#days while in a suitable season.
+	# Default: 3
+	# Range: 1 ~ 365
+	daysPerFruit = 3
+	#Global default: comma-separated horizontal directions a mature stem may fruit toward.
+	#Valid values: north, south, east, west (e.g. "north,east").
+	#The order defines the deterministic direction check order.
+	fruitDirections = "north,east"
+	#Global default: chance (0.0 - 1.0) that a stem (any maturity) in an unsuitable
+	#season mutates into short grass on each fruiting cycle.
+	# Default: 0.2
+	# Range: 0.0 ~ 1.0
+	unsuitableMutateChance = 0.2
+	#Global default: chance (0.0 - 1.0) that a MATURE stem in an unsuitable season produces
+	#a fruit on each fruiting cycle. Mutate, fruit, and idle form the mature-stem roll.
+	# Default: 0.2
+	# Range: 0.0 ~ 1.0
+	unsuitableFruitChance = 0.2
+	#Global default: chance (0.0 - 1.0) that an IMMATURE stem in an unsuitable season
+	#grows one stage on each fruiting cycle. Mutate, grow, and idle form the immature-stem
+	#roll. Default 0.0 preserves the classic behavior (immature stems never grow off-season).
+	# Default: 0.0
+	# Range: 0.0 ~ 1.0
+	unsuitableGrowChance = 0.0
+
+#Modular debug switches. Every subsystem is independently switchable;
+#the module switches additionally require 'logging' to be enabled (see DebugGate).
+[debug]
+	#Master switch for crop growth debug logging.
+	logging = false
+	#Log every supplementaries:flax state change (both halves) to debug.log.
+	#Requires 'logging' to also be true.
+	flaxAll = false
+	#Log crop/height-crop growth, harvest, bonemeal, and entry add/remove.
+	growth = false
+	#Log stem fruiting, mutation, bonemeal, and harvest.
+	stem = false
+	#Log maturity side effects (transform/companion/bonemeal fallback/double upper half).
+	sideEffect = false
+	#Log chunk-load/periodic catch-up summaries and NBT save/load counts.
+	catchUp = false
+	#Scan plantedDay anomalies (negative/over-horizon) on catch-up entry.
+	data = false
+	#Enable timed sections and a setBlock counter to locate slow paths.
+	perf = false
+	#Record events into an in-memory ring buffer for crash/freeze backtrace.
+	ring = false
+	#Register the /pastoralcraft debug commands (status/dump/reset).
+	commands = false
+	#Slow-path warning threshold in milliseconds (used by debug.perf).
+	# Default: 10
+	# Range: 1 ~ 60000
+	perfWarnMs = 10
+	#Capacity of the debug ring buffer.
+	# Default: 2048
+	# Range: 256 ~ 65536
+	ringSize = 2048
+	#Write the ring buffer/profiler/data-health to the logs/ directory on server stop.
+	dumpOnStop = true
+
+#Unified per-crop management. Crops are grouped by owning mod (vanilla
+#is 'minecraft'); each crop has a dedicated sub-section with only its
+#mechanism-relevant fields. Structural fields default to 'unset' and defer
+#to the crop_structure data map. The 'customOverrides' list is a fallback
+#for arbitrary crops not covered by a dedicated sub-section.
+[crops]
+	#Per-crop growth overrides for arbitrary crops.
+	#Format: "modid:crop_id=key=value,key2=value2,..."
+	#Supported keys: daysPerStage, seasons, topBlock, transformBlock, water, doubleAge,
+	#              freeze, climbBlock, climbSupport, maxClimbHeight,
+	#              daysPerFruit, fruitDirections, stemMutateChance, stemFruitChance,
+	#              stemGrowChance, unsuitableMutateChance, unsuitableGrowChance.
+	#Entries targeting a crop that has a dedicated sub-section above are ignored.
+	customOverrides = []
+
+	#Vanilla crops.
+	[crops.minecraft]
+
+		#Dedicated config for minecraft:wheat.
+		[crops.minecraft.wheat]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for minecraft:carrots.
+		[crops.minecraft.carrots]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for minecraft:potatoes.
+		[crops.minecraft.potatoes]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for minecraft:beetroots.
+		[crops.minecraft.beetroots]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for minecraft:torchflower.
+		[crops.minecraft.torchflower]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for minecraft:pitcher_crop.
+		[crops.minecraft.pitcher_crop]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for minecraft:nether_wart.
+		[crops.minecraft.nether_wart]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+		#Dedicated config for minecraft:cocoa.
+		[crops.minecraft.cocoa]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+		#Dedicated config for minecraft:sweet_berry_bush.
+		[crops.minecraft.sweet_berry_bush]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for minecraft:sugar_cane.
+		[crops.minecraft.sugar_cane]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+		#Dedicated config for minecraft:cactus.
+		[crops.minecraft.cactus]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+		#Dedicated config for minecraft:kelp.
+		[crops.minecraft.kelp]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+		#Dedicated config for minecraft:melon_stem.
+		[crops.minecraft.melon_stem]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Days between fruiting cycles (0 = use the global stem default, 3).
+			# Default: 0
+			# Range: 0 ~ 365
+			daysPerFruit = 0
+			#Fruiting directions (empty = use the global stem default, north,east).
+			fruitDirections = ""
+			#Stem unsuitable-season mutate chance (-1 = use the global stem default, 0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			stemMutateChance = -1.0
+			#Mature-stem unsuitable-season fruit chance (-1 = use the global stem default, 0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			stemFruitChance = -1.0
+			#Immature-stem unsuitable-season grow chance (-1 = use the global stem default, 0.00).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			stemGrowChance = -1.0
+
+		#Dedicated config for minecraft:pumpkin_stem.
+		[crops.minecraft.pumpkin_stem]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Days between fruiting cycles (0 = use the global stem default, 3).
+			# Default: 0
+			# Range: 0 ~ 365
+			daysPerFruit = 0
+			#Fruiting directions (empty = use the global stem default, north,east).
+			fruitDirections = ""
+			#Stem unsuitable-season mutate chance (-1 = use the global stem default, 0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			stemMutateChance = -1.0
+			#Mature-stem unsuitable-season fruit chance (-1 = use the global stem default, 0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			stemFruitChance = -1.0
+			#Immature-stem unsuitable-season grow chance (-1 = use the global stem default, 0.00).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			stemGrowChance = -1.0
+
+	#Farmers Delight crops.
+	[crops.farmersdelight]
+
+		#Dedicated config for farmersdelight:cabbages.
+		[crops.farmersdelight.cabbages]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for farmersdelight:onions.
+		[crops.farmersdelight.onions]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Farmers Delight tomato lifecycle: budding_tomatoes -> tomatoes -> tomatoes_on_rope.
+		#Freezes entirely in unsuitable seasons (no mutation or growth).
+		[crops.farmersdelight.tomato]
+			#Days per stage for budding_tomatoes (default 1).
+			# Default: 1
+			# Range: 0 ~ 365
+			buddingDaysPerStage = 1
+			#Days per stage for tomatoes (default 3).
+			# Default: 3
+			# Range: 0 ~ 365
+			tomatoDaysPerStage = 3
+			#Days per stage for tomatoes_on_rope (default 3).
+			# Default: 3
+			# Range: 0 ~ 365
+			tomatoOnRopeDaysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+		#Dedicated config for farmersdelight:rice, farmersdelight:rice_panicles.
+		[crops.farmersdelight.rice]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+	#Supplementaries crops.
+	[crops.supplementaries]
+
+		#Dedicated config for supplementaries:flax.
+		[crops.supplementaries.flax]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+
+	#Adorable Hamster Pets crops.
+	[crops.adorablehamsterpets]
+
+		#Dedicated config for adorablehamsterpets:sunflower_block.
+		[crops.adorablehamsterpets.sunflower_block]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = "spring_autumn"
+
+		#Dedicated config for adorablehamsterpets:cucumber_crop.
+		[crops.adorablehamsterpets.cucumber_crop]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for adorablehamsterpets:green_beans_crop.
+		[crops.adorablehamsterpets.green_beans_crop]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+	#Kaleidoscope Cookery crops.
+	[crops.kaleidoscope_cookery]
+
+		#Dedicated config for kaleidoscope_cookery:tomato_crop.
+		[crops.kaleidoscope_cookery.tomato_crop]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for kaleidoscope_cookery:chili_crop.
+		[crops.kaleidoscope_cookery.chili_crop]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for kaleidoscope_cookery:lettuce_crop.
+		[crops.kaleidoscope_cookery.lettuce_crop]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""
+			#Chance this crop mutates to short grass per unsuitable-season attempt.
+			#-1 = use the global default (0.20).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableMutateChance = -1.0
+			#Chance this crop grows one stage per unsuitable-season attempt.
+			#-1 = use the global default (0.40).
+			# Default: -1.0
+			# Range: -1.0 ~ 1.0
+			unsuitableGrowChance = -1.0
+
+		#Dedicated config for kaleidoscope_cookery:rice_crop.
+		[crops.kaleidoscope_cookery.rice_crop]
+			#Solar days per growth stage for this crop.
+			# Default: 3
+			# Range: 0 ~ 365
+			daysPerStage = 3
+			#Override suitable seasons ('spring,autumn' / 'year_round');
+			#empty = use the normal resolution chain.
+			seasons = ""

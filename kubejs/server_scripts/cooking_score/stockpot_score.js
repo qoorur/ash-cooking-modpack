@@ -1,20 +1,29 @@
 // ==============================================================
 // DEPENDENCIES (required mods):
-//   Kaleidoscope Cookery (kaleidoscope_cookery); depends on score_api.js
+//   Kaleidoscope Cookery (kaleidoscope_cookery) + 桥接 mod ash_kaleidoscope_kitchen_wok
+//   （提供 ash_stockpot.cooked 事件）；depends on score_api.js
 // ==============================================================
 // priority: 0
 // kubejs/server_scripts/cooking_score/stockpot_score.js
-// 森罗物语汤锅评分系统（事件驱动版）
+// 森罗物语汤锅（煮锅）评分系统（完成事件驱动版）
 // 依赖 score_api.js 提供的 ssXxx 函数
 //
-// 事件驱动：监听 StockpotMatchRecipeEvent$Post（配方匹配、开始烹饪瞬间触发）
-//   该事件提供 getStockpot() / getLevel() / getInput() / getOutput()，
-//   此刻 stockpot.getStatus() === 1（烹饪中），stockpot.getResult() 已就绪，
-//   可直接算分并写入成品，无需 ServerEvents.tick 轮询。
+// ===== 触发方式（与炒锅 wok_score.js 对齐）=====
+//   监听桥接 mod 提供的 KubeJS 事件 ash_stockpot.cooked。
+//   该事件由 StockpotBlockEntityMixin 注入 StockpotBlockEntity#tick，
+//   在「烹饪完成」那一刻（status=3）、且 inputs.clear() 之前触发。
+//
+//   为何要「在 inputs 清空之前」触发：
+//     汤锅完成时方块实体原本会立刻清空食材（inputs）。评分需要读
+//     Inputs.Items 里每种食材的新鲜度（spoiled:spoil_timer），
+//     因此桥接层把事件放在 clear 之前，保证结算时食材还在。
+//
+//   此刻 result 已就绪，可直接算分并写入成品；与后续取出方式无关
+//   （玩家右键 / 机械臂 / 女仆 / 管道取出，拿到的都是已带分的成品）。
+// ==============================================================
 
 (function () {
     const DEBUG = false;   // 调试时改 true
-
     function log(msg) { if (DEBUG) console.info(msg); }
 
     // ===== NBT 工具 =====
@@ -25,89 +34,72 @@
         if (!nbt.contains('Result')) return false;
         let r = nbt.getCompound('Result');
         if (!r.contains('components')) return false;
-                let c = r.getCompound('components');
+        let c = r.getCompound('components');
         if (!c.contains('minecraft:custom_data')) return false;
         return c.getCompound('minecraft:custom_data').contains('ingredient_score');
     }
 
     // =====================================================================
-    // 核心：监听配方匹配事件（事件驱动，替代 tick 轮询）
+    // 入口：汤锅「烹饪完成」事件（由桥接 mod 触发，与炒锅 wok_score.js 对称）
+    //
+    // 注意：事件字段（level / pos / stockpot / result）会被 KubeJS 以隐式
+    //       变量注入回调作用域。因此回调内不要声明同名 const/let（否则报
+    //       "redeclaration of var level"）；这里用 typeof 兜底访问。
     // =====================================================================
-    (function registerStockpotListener() {
-        let PostClass, NeoForge, bus, EventPriority, Consumer;
+    ash_stockpot.cooked(function (event) {
         try {
-            PostClass = Java.loadClass('com.github.ysbbbbbb.kaleidoscopecookery.api.event.StockpotMatchRecipeEvent$Post');
-            NeoForge = Java.loadClass('net.neoforged.neoforge.common.NeoForge');
-            EventPriority = Java.loadClass('net.neoforged.bus.api.EventPriority');
-            Consumer = Java.loadClass('java.util.function.Consumer');
-        } catch (e) {
-            console.error('[SpoilScore] 加载事件类失败，汤锅评分将不可用: ' + e);
-            return;
-        }
-        bus = NeoForge.EVENT_BUS;
+            var lv = (typeof level !== 'undefined') ? level : event.level;
+            var pot = (typeof stockpot !== 'undefined') ? stockpot : event.stockpot;
+            var result = (typeof result !== 'undefined') ? result : event.result;
 
-        let listener = new Consumer({
-            accept: function (ev) {
-                try {
-                    handleMatch(ev);
-                } catch (e) {
-                    console.error('[SpoilScore] 汤锅事件处理异常: ' + e);
-                }
+            if (!lv || !pot) return;
+            if (lv.clientSide) return;
+
+            // 状态校验：仅完成（=3）处理
+            var status;
+            try { status = pot.getStatus(); } catch (e) { return; }
+            if (status !== 3) return;
+
+            // 成品
+            if (!result || result.isEmpty()) {
+                try { result = pot.getResult(); } catch (e) {}
             }
-        });
+            if (!result || result.isEmpty()) return;
 
-        try {
-            bus.addListener(EventPriority.NORMAL, PostClass, listener);
-            console.info('[SpoilScore] stockpot_score.js 事件监听已注册 (StockpotMatchRecipeEvent$Post)');
+            // 读 NBT（此刻 inputs 尚未被清空，食材齐全）
+            var nbt = getNbt(pot, lv);
+            if (!nbt) return;
+
+            // 已写过分数则跳过
+            if (hasScore(nbt)) return;
+
+            // 算分：组件1(原料 ingredient_score) + 组件2(配比 fuzzy_ratio)
+            var ingredient;
+            try {
+                ingredient = ssApplyComponentsFromNbt(nbt, result);
+            } catch (e) {
+                console.error('[SpoilScore] 汤锅算分失败: ' + e);
+                return;
+            }
+
+            // 回写并同步
+            try { pot.setChanged(); } catch (e) {}
+            try {
+                var bp = pot.getBlockPos();
+                var bs = lv.getBlockState(bp);
+                lv.sendBlockUpdated(bp, bs, bs, 3);
+            } catch (e) {}
+
+            var posStr = '?';
+            try {
+                var bp2 = pot.getBlockPos();
+                posStr = bp2.getX() + ',' + bp2.getY() + ',' + bp2.getZ();
+            } catch (e) {}
+            log('[SpoilScore] 汤锅(完成) ' + posStr + ' | 原料分: ' + ingredient);
         } catch (e) {
-            console.error('[SpoilScore] 注册汤锅事件监听失败: ' + e);
+            console.error('[SpoilScore] 汤锅完成事件处理异常: ' + e);
         }
-    })();
+    });
 
-    function handleMatch(ev) {
-        let stockpot = ev.getStockpot();
-        let level = ev.getLevel();
-        if (!stockpot || !level || level.clientSide) return;
-
-        // 状态校验：仅烹饪中（=1）处理
-        let status;
-        try { status = stockpot.getStatus(); } catch (e) { return; }
-        if (status !== 1) return;
-
-        // 读取 NBT（复用原有算分逻辑）
-        let nbt = getNbt(stockpot, level);
-        if (!nbt) return;
-
-        // 已写过分数则跳过
-        if (hasScore(nbt)) return;
-
-        // 拿成品
-        let result = null;
-        try {
-            result = stockpot.getResult();
-        } catch (e) {}
-        if (!result || result.isEmpty()) return;
-
-        // 写分：组件1(原料 ingredient_score) + 组件2(配比 fuzzy_ratio)
-        let ingredient = ssApplyComponentsFromNbt(nbt, result);
-
-        // 回写并同步
-        try {
-            stockpot.setChanged();
-        } catch (e) {}
-        try {
-            let pos = stockpot.getBlockPos();
-            let bs = level.getBlockState(pos);
-            level.sendBlockUpdated(pos, bs, bs, 3);
-        } catch (e) {}
-
-        let posStr = '?';
-        try {
-            let pos = stockpot.getBlockPos();
-            posStr = pos.getX() + ',' + pos.getY() + ',' + pos.getZ();
-        } catch (e) {}
-        log('[SpoilScore] 汤锅 ' + posStr + ' | 原料分: ' + ingredient);
-    }
-
-    console.info('[SpoilScore] stockpot_score.js 已加载（事件驱动版）');
+    console.info('[SpoilScore] stockpot_score.js 已加载（完成事件驱动版 ash_stockpot.cooked）');
 })();

@@ -51,9 +51,9 @@
 // 
 	"customCurrencyItem": "",
 	// Base oTc coin rewards per order tier [White, Green, Blue, Purple, Red]
-	"defaultCoinArray": [1,2,3,4,6],
+	"defaultCoinArray": [0,0,0,0,0],
 	// Extra oTc coins for completing urgent orders (added on top of base)
-	"rushBonus": 3,
+	"rushBonus": 0,
 	// Delivery reward multiplier (e.g. 1.8 means +80%)
 	"deliveryMultiplier": 1.8,
 	// Long-distance delivery reward multiplier (Default: 4.0)

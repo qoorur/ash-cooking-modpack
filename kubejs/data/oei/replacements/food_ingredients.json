@@ -1,0 +1,287 @@
+[
+  {
+    "comment": "生米：森罗/田园调酿 -> 农夫乐事",
+    "matchItems": [
+      "concoction:rice",
+      "kaleidoscope_cookery:rice"
+    ],
+    "resultItems": "farmersdelight:rice"
+  },
+  {
+    "comment": "稻穗",
+    "matchItems": [
+      "kaleidoscope_cookery:rice_panicle"
+    ],
+    "resultItems": "farmersdelight:rice_panicle"
+  },
+  {
+    "comment": "野生稻",
+    "matchItems": [
+      "kaleidoscope_cookery:wild_rice"
+    ],
+    "resultItems": "farmersdelight:wild_rice"
+  },
+  {
+    "comment": "面粉：森罗/田园调酿/额外乐事 -> 农夫乐事",
+    "matchItems": [
+      "concoction:flour",
+      "kaleidoscope_cookery:flour",
+      "extradelight:flour"
+    ],
+    "resultItems": "farmersdelight:flour"
+  },
+  {
+    "comment": "番茄",
+    "matchItems": [
+      "concoction:tomato",
+      "kaleidoscope_cookery:tomato"
+    ],
+    "resultItems": "farmersdelight:tomato"
+  },
+  {
+    "comment": "番茄种子",
+    "matchItems": [
+      "concoction:tomato_seeds"
+    ],
+    "resultItems": "farmersdelight:tomato_seeds"
+  },
+  {
+    "comment": "卷心菜叶",
+    "matchItems": [
+      "concoction:cabbage_leaf"
+    ],
+    "resultItems": "farmersdelight:cabbage_leaf"
+  },
+  {
+    "comment": "卷心菜种子",
+    "matchItems": [
+      "concoction:cabbage_seeds"
+    ],
+    "resultItems": "farmersdelight:cabbage_seeds"
+  },
+  {
+    "comment": "洋葱：森罗烧烤/田园调酿 -> 农夫乐事",
+    "matchItems": [
+      "concoction:onion",
+      "kaleidoscope_grilling:onion"
+    ],
+    "resultItems": "farmersdelight:onion"
+  },
+  {
+    "comment": "煎蛋",
+    "matchItems": [
+      "concoction:fried_egg",
+      "kaleidoscope_cookery:fried_egg"
+    ],
+    "resultItems": "farmersdelight:fried_egg"
+  },
+  {
+    "comment": "培根煎蛋",
+    "matchItems": [
+      "concoction:bacon_and_eggs"
+    ],
+    "resultItems": "farmersdelight:bacon_and_eggs"
+  },
+  {
+    "comment": "蛋糕片",
+    "matchItems": [
+      "concoction:cake_slice"
+    ],
+    "resultItems": "farmersdelight:cake_slice"
+  },
+  {
+    "comment": "南瓜派片",
+    "matchItems": [
+      "concoction:pumpkin_pie_slice",
+      "extradelight:pumpkin_pie_slice"
+    ],
+    "resultItems": "farmersdelight:pumpkin_pie_slice"
+  },
+  {
+    "comment": "牛奶瓶",
+    "matchItems": [
+      "concoction:milk_bottle"
+    ],
+    "resultItems": "farmersdelight:milk_bottle"
+  },
+  {
+    "comment": "蔬菜汤",
+    "matchItems": [
+      "concoction:vegetable_soup"
+    ],
+    "resultItems": "farmersdelight:vegetable_soup"
+  },
+  {
+    "comment": "洋葱汤：田园调酿/额外乐事 -> 农夫乐事",
+    "matchItems": [
+      "concoction:onion_soup",
+      "extradelight:onion_soup"
+    ],
+    "resultItems": "farmersdelight:onion_soup"
+  },
+  {
+    "comment": "绳子：Quark/Supplementaries -> 农夫乐事",
+    "matchItems": [
+      "quark:rope",
+      "supplementaries:rope"
+    ],
+    "resultItems": "farmersdelight:rope"
+  },
+  {
+    "comment": "稻草",
+    "matchItems": [
+      "createaddition:straw"
+    ],
+    "resultItems": "farmersdelight:straw"
+  },
+  {
+    "comment": "火腿",
+    "matchItems": [
+      "kaleidoscope_nether:ham"
+    ],
+    "resultItems": "farmersdelight:ham"
+  },
+  {
+    "comment": "黄油 -> 额外乐事",
+    "matchItems": [
+      "concoction:butter",
+      "ratatouille_fried_delights:butter",
+      "youkaishomecoming:butter"
+    ],
+    "resultItems": "extradelight:butter"
+  },
+  {
+    "comment": "奶酪 -> 额外乐事",
+    "matchItems": [
+      "alexsmobsdelight:cheese",
+      "ratatouille_fried_delights:cheese",
+      "refurbished_furniture:cheese"
+    ],
+    "resultItems": "extradelight:cheese"
+  },
+  {
+    "comment": "盐 -> 额外乐事",
+    "matchItems": [
+      "extradelight:salt",
+      "ratatouille:salt"
+    ],
+    "resultItems": "kaleidoscope_chinesefood:salt"
+  },
+  {
+    "comment": "醋",
+    "matchItems": [
+      "extradelight:vinegar"
+    ],
+    "resultItems": "kaleidoscope_tavern:vinegar"
+  },
+  {
+    "comment": "可可粉",
+    "matchItems": [
+      "ratatouille:cocoa_powder"
+    ],
+    "resultItems": "extradelight:cocoa_powder"
+  },
+  {
+    "comment": "可可固形物",
+    "matchItems": [
+      "ratatouille:cocoa_solids"
+    ],
+    "resultItems": "extradelight:cocoa_solids"
+  },
+  {
+    "comment": "面包片",
+    "matchItems": [
+      "refurbished_furniture:bread_slice"
+    ],
+    "resultItems": "extradelight:bread_slice"
+  },
+  {
+    "comment": "吐司",
+    "matchItems": [
+      "refurbished_furniture:toast"
+    ],
+    "resultItems": "extradelight:toast"
+  },
+  {
+    "comment": "芝士三明治",
+    "matchItems": [
+      "refurbished_furniture:cheese_sandwich"
+    ],
+    "resultItems": "extradelight:cheese_sandwich"
+  },
+  {
+    "comment": "太阳花籽 -> 额外乐事",
+    "matchItems": [
+      "concoction:sunflower_seeds",
+      "create_bic_bit:sunflower_seeds",
+      "ratatouille_fried_delights:sunflower_seeds",
+      "spawn:sunflower_seeds"
+    ],
+    "resultItems": "extradelight:sunflower_seeds"
+  },
+  {
+    "comment": "薄荷",
+    "matchItems": [
+      "concoction:mint"
+    ],
+    "resultItems": "extradelight:mint"
+  },
+  {
+    "comment": "黄瓜",
+    "matchItems": [
+      "youkaishomecoming:cucumber"
+    ],
+    "resultItems": "extradelight:cucumber"
+  },
+  {
+    "comment": "面粉(工作台)：翻新家具 -> Create",
+    "matchItems": [
+      "refurbished_furniture:wheat_flour"
+    ],
+    "resultItems": "create:wheat_flour"
+  },
+  {
+    "comment": "面团：田园调酿/翻新家具 -> Create",
+    "matchItems": [
+      "concoction:dough",
+      "refurbished_furniture:dough"
+    ],
+    "resultItems": "create:dough"
+  },
+  {
+    "comment": "蛋糕底座",
+    "matchItems": [
+      "ratatouille:cake_base"
+    ],
+    "resultItems": "createaddition:cake_base"
+  },
+  {
+    "comment": "铁棍",
+    "matchItems": [
+      "quark:iron_rod"
+    ],
+    "resultItems": "createaddition:iron_rod"
+  },
+  {
+    "comment": "锌板",
+    "matchItems": [
+      "createdeco:zinc_sheet"
+    ],
+    "resultItems": "createaddition:zinc_sheet"
+  },
+  {
+    "comment": "皮带接头：装饰工厂 -> Create",
+    "matchItems": [
+      "dndecor:belt_connector"
+    ],
+    "resultItems": "create:belt_connector"
+  },
+  {
+    "comment": "辣椒：田园调酿/额外乐事 -> 森罗厨房红椒",
+    "matchItems": [
+      "concoction:spicy_pepper",
+      "extradelight:chili"
+    ],
+    "resultItems": "kaleidoscope_cookery:red_chili"
+  }
+]

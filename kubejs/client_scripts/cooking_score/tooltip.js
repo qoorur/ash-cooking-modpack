@@ -94,6 +94,33 @@ function csReadFreshnessPercent(stack) {
     return (spoil.maxTime - spoil.timer) / spoil.maxTime * 100;
 }
 
+// 读食物 level（来自 startup 载入的 global.FOOD_LEVEL_MAP / food_level_data.json）
+function csReadFoodLevel(stack) {
+    if (!stack || stack.isEmpty()) return null;
+    try {
+        if (typeof global.getFoodLevelOf === 'function') {
+            var v = global.getFoodLevelOf(stack);
+            return (v === undefined) ? null : v;
+        }
+    } catch (e) {}
+    return null;
+}
+
+// level 是否"需要展示档位"：level > 1（不含 1）
+function csLevelNeedsGrade(level) {
+    return (level !== null && level !== undefined && Number(level) > 1.0);
+}
+
+// level 文本配色（数值越大越高级）
+function csLevelText(level) {
+    var n = Number(level);
+    if (n >= 4.0) return Text.lightPurple('' + level);
+    if (n >= 3.0) return Text.gold('' + level);
+    if (n >= 2.0) return Text.blue('' + level);
+    if (n > 1.0)  return Text.green('' + level);
+    return Text.gray('' + level);
+}
+
 // =====================================================================
 // 最终评分（加权几何平均）
 // =====================================================================
@@ -145,37 +172,6 @@ function csScoreText(v) {
     return Text.red('' + v);
 }
 
-// =====================================================================
-// =====================================================================
-// 食物分类 tag（由 kubejs:food/* 物品 tag 提供）
-//   kubejs:food/raw     原初食材
-//   kubejs:food/simple  简易加工
-//   kubejs:food/complex 复合珍馐
-//   kubejs:food/other   其他
-// =====================================================================
-var CS_CATEGORIES = [
-    { tag: 'kubejs:food/raw',     text: '原初食材' },
-    { tag: 'kubejs:food/simple',  text: '简易加工' },
-    { tag: 'kubejs:food/complex', text: '复合珍馐' },
-    { tag: 'kubejs:food/other',   text: '其他' }
-];
-
-// 返回匹配到的分类对象 {tag, text}，未命中返回 null
-function csReadFoodCategory(stack) {
-    if (!stack || stack.isEmpty()) return null;
-    for (var i = 0; i < CS_CATEGORIES.length; i++) {
-        var cat = CS_CATEGORIES[i];
-        try {
-            if (typeof stack.hasTag === 'function' && stack.hasTag(cat.tag)) return cat;
-        } catch (e) {}
-        try {
-            if (stack.tags && typeof stack.tags.contains === 'function'
-                && stack.tags.contains(cat.tag)) return cat;
-        } catch (e) {}
-    }
-    return null;
-}
-
 // 悬停事件
 // =====================================================================
 NativeEvents.onEvent(
@@ -194,9 +190,11 @@ NativeEvents.onEvent(
             var fuzzy = csReadFuzzyRatio(stack);
             var spoil = csReadSpoilTimer(stack);
             var freshPercent = csReadFreshnessPercent(stack);
+            // 食物 level（来自 food_level_data.json；无记录为 null）
+            var tooltipLevel = csReadFoodLevel(stack);
 
-            // 无任何评分/腐烂数据 → 不显示（避免所有物品都弹）
-            if (ingredient === null && fuzzy === null && spoil === null) return;
+            // 无任何评分/腐烂/level 数据 → 不显示（避免所有物品都弹）
+            if (ingredient === null && fuzzy === null && spoil === null && tooltipLevel === null) return;
 
             // ===== 最终评分 =====
             var finalScore = csCalcFinalWeightedScore(
@@ -210,11 +208,11 @@ NativeEvents.onEvent(
 
             // 追加到提示条末尾
             lines.add(Text.darkGray('———— 食物品鉴 ————'));
-            var foodCat = csReadFoodCategory(stack);
-            if (foodCat !== null) {
+            // 食物 level（无记录则不显示）
+            if (tooltipLevel !== null) {
                 lines.add(
-                    Text.gray('分类：')
-                        .append(Text.aqua(foodCat.text))
+                    Text.gray('等级：')
+                        .append(csLevelText(tooltipLevel))
                 );
             }
             if (ingredient !== null) {
@@ -298,10 +296,10 @@ console.info('[FoodTooltip] 食物悬停提示条已加载');
 ash_tooltip.resolveStyle(function (event) {
     var result = '';
     var stack = event.stack;
-    // 分类为原初食材(raw) → 不叠加档位样式
-    var cat = csReadFoodCategory(stack);
-    var isRaw = (cat !== null && cat.tag === 'kubejs:food/raw');
-    if (stack && !stack.isEmpty() && !isRaw) {
+    // 仅 level > 1（不含 1）才叠加档位样式
+    var levelForGrade = csReadFoodLevel(stack);
+    var needGrade = csLevelNeedsGrade(levelForGrade);
+    if (stack && !stack.isEmpty() && needGrade) {
         var ingredient = csReadIngredientScore(stack);
         if (ingredient === null) {
             var legacy = csReadLegacyScore(stack);
@@ -355,10 +353,10 @@ console.info('[FoodTooltip] 档位样式事件已注册');
 ash_tooltip.resolveLabel(function (event) {
     var result = '';
     var stack = event.stack;
-    // 分类为原初食材(raw) → 不替换 label（保持物品 rarity）
-    var cat = csReadFoodCategory(stack);
-    var isRaw = (cat !== null && cat.tag === 'kubejs:food/raw');
-    if (stack && !stack.isEmpty() && !isRaw) {
+    // 仅 level > 1（不含 1）才替换 label 档位
+    var levelForLabel = csReadFoodLevel(stack);
+    var needLabel = csLevelNeedsGrade(levelForLabel);
+    if (stack && !stack.isEmpty() && needLabel) {
         var ingredient = csReadIngredientScore(stack);
         if (ingredient === null) {
             var legacy = csReadLegacyScore(stack);

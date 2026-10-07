@@ -1,0 +1,8 @@
+#Belt Block Item - client settings
+[general]
+	#Master switch. When false, items render exactly like vanilla Create belts.
+	#Takes effect immediately for items that get (re)rendered on a belt.
+	enabled = true
+	#Print a one-time debug line for each belt item showing whether a block model
+	#replacement was found. Only useful for troubleshooting.
+	debugRenderLog = false

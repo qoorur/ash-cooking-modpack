@@ -1,0 +1,5 @@
+[immersive_eating]
+	#是否右键启用动画
+	enableRightClickAnimation = true
+	#当玩家附近有村民时强制村民注释
+	enableVillagerGaze = false
